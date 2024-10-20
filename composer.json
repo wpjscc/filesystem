@@ -1,5 +1,5 @@
 {
-    "name": "react/filesystem",
+    "name": "wpjscc/filesystem",
     "description": "Asynchronous filesystem abstraction.",
     "keywords": [
         "filesystem",
