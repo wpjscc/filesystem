@@ -21,4 +21,9 @@ final class Factory
 
         return new Fallback\Adapter();
     }
+
+    public static function createChildProcess(): AdapterInterface
+    {
+        return new ChildProcess\Adapter();
+    }
 }
