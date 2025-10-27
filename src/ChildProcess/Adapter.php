@@ -42,5 +42,10 @@ final class Adapter implements AdapterInterface
     {
         return new File(dirname($path) . DIRECTORY_SEPARATOR, basename($path));
     }
+
+    public function __destruct()
+    {
+        Process::close();
+    }
 }
 

@@ -10,6 +10,7 @@ use React\Promise\Promise;
 class Process
 {
     static ?TunnelStream $tunnelStream = null;
+    static ?ReactProcess $process = null;
 
 
     public static function call(callable $callable)
@@ -48,11 +49,11 @@ class Process
         if (static::$tunnelStream !== null) {
             return;
         }
-        $process = new ReactProcess(sprintf(
+        static::$process = new ReactProcess(sprintf(
             'exec php %s/child_process_init.php',
             __DIR__
         ));
-        $process->start();
+        static::$process->start();
 
         // $process->stdout->on('data', function ($data)  {
         //     echo "[STDOUT] \n" . $data;
@@ -67,7 +68,15 @@ class Process
         //     echo "[EXIT] \n" . $exitCode . " " . $termSignal;
         // });
 
-        static::$tunnelStream = new TunnelStream($process->stderr, $process->stdin);;
+        static::$tunnelStream = new TunnelStream(static::$process->stderr, static::$process->stdin);;
 
+    }
+
+    public static function close()
+    {
+        if (static::$process) {
+            static::$process->close();
+            static::$process = null;
+        }
     }
 }
