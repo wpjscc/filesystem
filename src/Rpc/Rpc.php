@@ -55,7 +55,6 @@ class ChildProcessRpcClientAdapter implements RpcClientInterface
         $this->client = new ChildProcessClient(
             Evaluator::class,
             null,
-            __DIR__ . '/Evaluator.php'
         );
     }
 
