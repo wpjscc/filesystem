@@ -18,7 +18,9 @@
         "react/event-loop": "^1.2",
         "react/promise": "^3 || ^2.8",
         "react/promise-stream": "^1.2",
+        "react/socket": "^1.12",
         "react/stream": "^1.2",
+        "reactphp-x/rpc": "^1.0",
         "reactphp-x/tunnel-stream": "^1.0"
     },
     "require-dev": {

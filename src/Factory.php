@@ -26,4 +26,10 @@ final class Factory
     {
         return new ChildProcess\Adapter();
     }
+
+    public static function createRpc(string $address = '127.0.0.1:8080'): AdapterInterface
+    {
+        Rpc\Process::setAddress($address);
+        return new Rpc\Adapter();
+    }
 }
