@@ -9,13 +9,20 @@ final class File implements FileInterface
 {
     use StatTrait;
 
+    private Adapter $adapter;
     private string $path;
     private string $name;
 
-    public function __construct(string $path, string $name)
+    public function __construct(Adapter $adapter, string $path, string $name)
     {
+        $this->adapter = $adapter;
         $this->path = $path;
         $this->name = $name;
+    }
+
+    protected function getAdapter(): Adapter
+    {
+        return $this->adapter;
     }
 
     public function stat(): PromiseInterface
@@ -26,7 +33,7 @@ final class File implements FileInterface
     public function getContents(int $offset = 0, ?int $maxlen = null): PromiseInterface
     {
         $path = $this->path . $this->name;
-        return Process::call('file_get_contents', [$path, $offset, $maxlen]);
+        return $this->adapter->getProcess()->call('file_get_contents', [$path, $offset, $maxlen]);
     }
 
     public function putContents(string $contents, int $flags = 0): PromiseInterface
@@ -39,13 +46,13 @@ final class File implements FileInterface
         }
 
         $path = $this->path . $this->name;
-        return Process::call('file_put_contents', [$path, $contents, $flags]);
+        return $this->adapter->getProcess()->call('file_put_contents', [$path, $contents, $flags]);
     }
 
     public function unlink(): PromiseInterface
     {
         $path = $this->path . $this->name;
-        return Process::call('unlink', [$path]);
+        return $this->adapter->getProcess()->call('unlink', [$path]);
     }
 
     public function path(): string

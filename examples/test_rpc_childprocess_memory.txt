@@ -1,18 +1,18 @@
 {
     "start_memory_usage": {
-        "date": "2025-10-30 05:40:01",
+        "date": "2025-10-30 05:43:21",
         "current_usage_mb": 1.373,
         "current_usage_real_mb": 2,
         "peak_usage_mb": 1.64,
         "peak_usage_real_mb": 2
     },
     "current_memory_usage": {
-        "date": "2025-10-30 05:40:11",
-        "current_usage_mb": 2.196,
+        "date": "2025-10-30 05:43:52",
+        "current_usage_mb": 1.716,
         "current_usage_real_mb": 4,
-        "peak_usage_mb": 2.287,
+        "peak_usage_mb": 1.953,
         "peak_usage_real_mb": 4
     },
     "memory_limit": "-1",
-    "timestamp": "2025-10-30 05:40:11"
+    "timestamp": "2025-10-30 05:43:52"
 }

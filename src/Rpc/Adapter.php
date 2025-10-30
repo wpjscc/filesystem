@@ -12,6 +12,18 @@ final class Adapter implements AdapterInterface
 {
     use StatTrait;
 
+    private Rpc $process;
+
+    public function __construct(Rpc $process)
+    {
+        $this->process = $process;
+    }
+
+    protected function getAdapter(): Adapter
+    {
+        return $this;
+    }
+
     public function detect(string $path): PromiseInterface
     {
         return $this->internalStat($path)->then(function (?Stat $stat) use ($path) {
@@ -40,12 +52,17 @@ final class Adapter implements AdapterInterface
 
     public function file(string $path): Node\FileInterface
     {
-        return new File(dirname($path) . DIRECTORY_SEPARATOR, basename($path));
+        return new File($this, dirname($path) . DIRECTORY_SEPARATOR, basename($path));
+    }
+
+    public function getProcess(): Rpc
+    {
+        return $this->process;
     }
 
     public function __destruct()
     {
-        Process::close();
+        $this->process->close();
     }
 }
 

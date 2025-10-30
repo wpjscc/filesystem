@@ -1416,12 +1416,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/reactphp-x/rpc.git",
-                "reference": "83425e9a5af4d0765e7428b1e07af3d047a59474"
+                "reference": "d94a5ce909f7747e0923cd2cadcfbfa6bdccbe24"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/reactphp-x/rpc/zipball/83425e9a5af4d0765e7428b1e07af3d047a59474",
-                "reference": "83425e9a5af4d0765e7428b1e07af3d047a59474",
+                "url": "https://api.github.com/repos/reactphp-x/rpc/zipball/d94a5ce909f7747e0923cd2cadcfbfa6bdccbe24",
+                "reference": "d94a5ce909f7747e0923cd2cadcfbfa6bdccbe24",
                 "shasum": ""
             },
             "require": {
@@ -1429,6 +1429,7 @@
                 "hcs-llc/php-json-rpc": "^7.0",
                 "php": "^8.1",
                 "react/async": "^4.3",
+                "react/child-process": "^0.6.6",
                 "react/http": "^1.11"
             },
             "require-dev": {
@@ -1446,8 +1447,8 @@
             ],
             "authors": [
                 {
-                    "name": "Your Name",
-                    "email": "your.email@example.com"
+                    "name": "wpjscc",
+                    "email": "wpjscc@gmail.com"
                 }
             ],
             "description": "A ReactPHP-based RPC library",
@@ -1461,7 +1462,7 @@
                 "issues": "https://github.com/reactphp-x/rpc/issues",
                 "source": "https://github.com/reactphp-x/rpc/tree/v1.0.0"
             },
-            "time": "2025-10-30T02:54:13+00:00"
+            "time": "2025-10-30T05:21:46+00:00"
         },
         {
             "name": "reactphp-x/tunnel-stream",

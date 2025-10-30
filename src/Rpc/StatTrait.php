@@ -9,7 +9,8 @@ trait StatTrait
 {
     protected function internalStat(string $path): PromiseInterface
     {
-        return Process::call('stat', [$path])->then(function ($result) {
+        $adapter = $this->getAdapter();
+        return $adapter->getProcess()->call('stat', [$path])->then(function ($result) {
             if ($result === null) {
                 return null;
             }
@@ -18,5 +19,7 @@ trait StatTrait
             return new Stat($result['path'], $result['stat']);
         });
     }
+
+    abstract protected function getAdapter(): Adapter;
 }
 

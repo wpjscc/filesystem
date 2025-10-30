@@ -12,14 +12,21 @@ final class NotExist implements Node\NotExistInterface
     use StatTrait;
 
     private AdapterInterface $filesystem;
+    private Adapter $adapter;
     private string $path;
     private string $name;
 
     public function __construct(AdapterInterface $filesystem, string $path, string $name)
     {
         $this->filesystem = $filesystem;
+        $this->adapter = $filesystem instanceof Adapter ? $filesystem : throw new \RuntimeException('Invalid adapter type');
         $this->path = $path;
         $this->name = $name;
+    }
+
+    protected function getAdapter(): Adapter
+    {
+        return $this->adapter;
     }
 
     public function stat(): PromiseInterface
@@ -30,14 +37,14 @@ final class NotExist implements Node\NotExistInterface
     public function createDirectory(): PromiseInterface
     {
         $path = $this->path . $this->name;
-        return Process::call('mkdir', [$path])->then(function ($result) {
+        return $this->adapter->getProcess()->call('mkdir', [$path])->then(function ($result) {
             return new Directory($this->filesystem, $this->path, $this->name);
         });
     }
 
     public function createFile(): PromiseInterface
     {
-        $file = new File($this->path, $this->name);
+        $file = new File($this->adapter, $this->path, $this->name);
 
         return $this->filesystem->detect($this->path)->then(function (Node\NodeInterface $node): PromiseInterface {
             if ($node instanceof Node\NotExistInterface) {

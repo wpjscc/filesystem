@@ -12,14 +12,21 @@ final class Directory implements Node\DirectoryInterface
     use StatTrait;
 
     private AdapterInterface $filesystem;
+    private Adapter $adapter;
     private string $path;
     private string $name;
 
     public function __construct(AdapterInterface $filesystem, string $path, string $name)
     {
         $this->filesystem = $filesystem;
+        $this->adapter = $filesystem instanceof Adapter ? $filesystem : throw new \RuntimeException('Invalid adapter type');
         $this->path = $path;
         $this->name = $name;
+    }
+
+    protected function getAdapter(): Adapter
+    {
+        return $this->adapter;
     }
 
     public function stat(): PromiseInterface
@@ -30,7 +37,7 @@ final class Directory implements Node\DirectoryInterface
     public function ls(): PromiseInterface
     {
         $path = $this->path . $this->name;
-        return Process::call('scandir', [$path])->then(function ($nodes) use ($path) {
+        return $this->adapter->getProcess()->call('scandir', [$path])->then(function ($nodes) use ($path) {
             $promises = [];
             foreach ($nodes as $node) {
                 $promises[] = $this->filesystem->detect($this->path . $this->name . DIRECTORY_SEPARATOR . $node);
@@ -42,7 +49,7 @@ final class Directory implements Node\DirectoryInterface
     public function unlink(): PromiseInterface
     {
         $path = $this->path . $this->name;
-        return Process::call('rmdir', [$path]);
+        return $this->adapter->getProcess()->call('rmdir', [$path]);
     }
 
     public function path(): string
