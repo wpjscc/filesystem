@@ -55,9 +55,9 @@ class Process
         ));
         static::$process->start();
 
-        // $process->stdout->on('data', function ($data)  {
-        //     echo "[STDOUT] \n" . $data;
-        // });
+        static::$process->stdout->on('data', function ($data)  {
+            echo "[STDOUT] \n" . $data;
+        });
 
         // $process->stderr->on('data', function ($data) {
         //     echo "[STDERR] \n" . $data;

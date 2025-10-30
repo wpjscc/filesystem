@@ -29,7 +29,7 @@ $file = $filesystem->file(__DIR__ . '/test.txt');
 async(function () use ($file) {
     $startMemoryUsage = getMemoryUsage();
     while (true) {
-        delay(1);
+        delay(0.001);
         $file->putContents(
             json_encode([
                 'start_memory_usage' => $startMemoryUsage,
@@ -37,7 +37,7 @@ async(function () use ($file) {
                 'memory_limit' => ini_get('memory_limit'),
             ], JSON_PRETTY_PRINT),
         )->then(function () {
-            echo 'file written' . "\n";
+            // echo 'file written' . "\n";
         });
     }
 })();

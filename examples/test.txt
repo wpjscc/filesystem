@@ -1,0 +1,15 @@
+{
+    "start_memory_usage": {
+        "current_usage_mb": 1.295,
+        "current_usage_real_mb": 2,
+        "peak_usage_mb": 1.571,
+        "peak_usage_real_mb": 2
+    },
+    "current_memory_usage": {
+        "current_usage_mb": 2.72,
+        "current_usage_real_mb": 4,
+        "peak_usage_mb": 3.138,
+        "peak_usage_real_mb": 4
+    },
+    "memory_limit": "-1"
+}
