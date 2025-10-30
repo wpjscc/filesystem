@@ -51,10 +51,9 @@ class ChildProcessRpcClientAdapter implements RpcClientInterface
 
     public function __construct()
     {
-        $loop = Loop::get();
         $this->client = new ChildProcessClient(
             Evaluator::class,
-            null,
+            null
         );
     }
 
