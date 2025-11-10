@@ -33,7 +33,9 @@ final class File implements FileInterface
     public function getContents(int $offset = 0, ?int $maxlen = null): PromiseInterface
     {
         $path = $this->path . $this->name;
-        return $this->adapter->getProcess()->call('file_get_contents', [$path, $offset, $maxlen]);
+        return $this->adapter->getProcess()->call('file_get_contents', [$path, $offset, $maxlen])->then(function ($contents) {
+            return base64_decode($contents);
+        });
     }
 
     public function putContents(string $contents, int $flags = 0): PromiseInterface
@@ -46,7 +48,7 @@ final class File implements FileInterface
         }
 
         $path = $this->path . $this->name;
-        return $this->adapter->getProcess()->call('file_put_contents', [$path, $contents, $flags]);
+        return $this->adapter->getProcess()->call('file_put_contents', [$path, base64_encode($contents), $flags]);
     }
 
     public function unlink(): PromiseInterface

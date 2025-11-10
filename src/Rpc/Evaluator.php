@@ -40,13 +40,14 @@ class Evaluator implements \ReactphpX\Rpc\Evaluator
             $maxlen = (int)stat($path)['size'];
         }
         
-        return file_get_contents($path, false, null, $offset, $maxlen);
+        return base64_encode(file_get_contents($path, false, null, $offset, $maxlen));
     }
 
     private function filePutContents(array $arguments): int
     {
         $path = $arguments[0] ?? '';
         $contents = $arguments[1] ?? '';
+        $contents = base64_decode($contents);
         $flags = $arguments[2] ?? 0;
         
         // Making sure we only pass in one flag for security reasons
